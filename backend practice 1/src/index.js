@@ -1,12 +1,15 @@
 const express = require("express")
 const {dbconnect} = require("./config/db")
 const {User} = require("./models/usermodel")
+require('dotenv').config();
+
 
 const app = express()
 
 // miidleware
 app.use(express.json())
 
+const port=process.env.port
 
 
 
@@ -60,7 +63,7 @@ app.use('/updateUser/:id', async (req, res) => {
 
 dbconnect().then(()=>{
     console.log("db connected");
-    app.listen(3000 , ()=>{
+    app.listen(port, ()=>{
     console.log("listening on port 3000");
 })
 })
