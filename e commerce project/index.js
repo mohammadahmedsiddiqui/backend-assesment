@@ -6,7 +6,7 @@ const { connectdb } = require("./src/config/db");
 const { user} = require("./src/modal/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken")
-
+const {userauth} = require("./src/middleware/user")
 
 require("dotenv").config();
 
@@ -102,7 +102,22 @@ const isvalidpassword = bcrypt.compare(password , User.password)
 
 )
 
+app.use('/profile' ,userauth , async(req,res,)=>{
+    try {
+    
+        
+        const user = req.user
 
+        res.send(user)
+
+    } catch (error) {
+           res.status(400).send({
+            message: 'Profile error !',
+            error: error.message
+        })
+    }
+
+})
 
 
 
